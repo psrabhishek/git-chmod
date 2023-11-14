@@ -1,0 +1,95 @@
+{
+    "name": "git-chmod",
+    "displayName": "Git chmod",
+    "description": "set executable flag for file in git repo",
+    "publisher": "AbhishekPSR",
+    "icon": "images/gitChmodIcon.png",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.54.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "galleryBanner": {
+        "color": "#4a4a4a",
+        "theme": "dark"
+    },
+    "license": "SEE LICENSE IN LICENSE.md",
+    "homepage": "https://github.com/psrabhishek/git-chmod/blob/main/README.md",
+    "bugs": {
+        "url": "https://github.com/psrabhishek/git-chmod/issues",
+        "email": "psrabhishek2@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/psrabhishek/git-chmod.git"
+    },
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "git-chmod.update",
+                "title": "Git Update chmod"
+            },
+            {
+                "command": "git-chmod.updateFromSCM",
+                "title": "Git Update chmod from SCM"
+            }
+        ],
+        "menus": {
+            "scm/resourceState/context": [
+                {
+                    "when": "scmProvider == git && scmResourceGroup == workingTree",
+                    "command": "git-chmod.updateFromSCM",
+                    "title": "Git Update chmod",
+                    "group": "7_modification"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "git-chmod.update",
+                    "title": "Git Update chmod",
+                    "group": "7_modification"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "Git chmod",
+            "properties": {
+                "gitChmod.recursiveFileSuffix": {
+                    "type": "string",
+                    "default": ".sh",
+                    "description": "Set the file pattern for which the permission is updated recursively in case of a folder."
+                },
+                "gitChmod.options": {
+                    "type": "string",
+                    "default": "--add",
+                    "description": "Additional options for the [git update-index](https://git-scm.com/docs/git-update-index) command"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.54.0",
+        "@types/glob": "^8.1.0",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "16.x",
+        "@typescript-eslint/eslint-plugin": "^5.59.1",
+        "@typescript-eslint/parser": "^5.59.1",
+        "eslint": "^8.39.0",
+        "glob": "^8.1.0",
+        "mocha": "^10.2.0",
+        "typescript": "^5.0.4",
+        "@vscode/test-electron": "^2.3.0"
+    }
+}
